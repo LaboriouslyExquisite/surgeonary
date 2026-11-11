@@ -37,6 +37,18 @@ On a Mac you can instead double-click `start-surgeonary.command`. It starts the 
 
 The app needs an internet connection: it loads three.js and its font from public CDNs, and Ask Surgeonary and Research articles read from PubMed.
 
+## Professor Okafor and the Pi camera (Windows demo)
+
+The **Professor Okafor** tab (under Platform) plays the head-camera recordings in the `videos` folder, and shows new ones as soon as they arrive.
+
+1. Double-click `start-surgeonary.bat`. It starts `surgeonary_server.py` (Python 3, nothing to install) and opens the app at http://localhost:8765/index.html#okafor. Keep its window open.
+2. On the Pi camera app, record a video, open **Video library** and press **Upload to Surgeonary**.
+3. Within a few seconds the video is copied into `videos` and pops up in the Professor Okafor tab.
+
+The laptop fetches uploads from the Pi (the Pi never connects to the laptop), so no firewall changes are needed. The Pi's address is in `surgeonary_config.json`, created on first run. If the Pi gets a new IP address, edit it there. You can also drop any `.mp4` into `videos` by hand and it shows up in the tab.
+
+`python3 -m http.server` still serves the rest of the app, but only `surgeonary_server.py` lists the videos and receives uploads.
+
 ## Ask Surgeonary
 
 Ask Surgeonary runs two open medical language models on your own computer through [Ollama](https://ollama.com):
@@ -69,6 +81,10 @@ The models are not part of this repository. Check their licences before you use 
 | `body-*.js` | The 3D anatomy layers (skeleton, organs, vascular, nervous, head) |
 | `photo-*.jpg` | The surgery photographs used as video stills |
 | `start-surgeonary.command` | Mac launcher |
+| `start-surgeonary.bat` | Windows launcher: runs `surgeonary_server.py` |
+| `surgeonary_server.py` | Local server: serves the app, lists `videos`, picks up uploads from the Pi camera |
+| `videos/` | Professor Okafor's recordings (not committed to git) |
+| `tools/add_okafor_tab.py` | Adds the Professor Okafor tab to `index.html` (already applied) |
 | `CREDITS.md` | Sources and licences for the anatomy, photos, fonts and libraries |
 
 ## Credits
